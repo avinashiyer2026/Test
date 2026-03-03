@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LDM Global – Legal Intelligence. Delivered Globally.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628; --navy-mid: #112240;
+      --blue: #1a56db; --blue-light: #3b82f6;
+      --accent: #06b6d4; --gold: #f59e0b;
+      --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+      --gray-400: #94a3b8; --gray-600: #475569; --gray-800: #1e293b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #0f172a; background: #fff; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,22,40,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 72px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, #1a56db, #06b6d4);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; color: white; font-size: 13px; letter-spacing: -0.5px;
+    }
+    .nav-logo-text { color: white; font-size: 18px; font-weight: 700; }
+    .nav-logo-text span { color: #06b6d4; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .nav-cta {
+      background: #1a56db; color: white; padding: 10px 22px;
+      border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #3b82f6; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 55%, #0a2040 100%);
+      display: flex; align-items: center;
+      padding: 120px 5% 80px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,86,219,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(6,182,212,0.1) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(26,86,219,0.2); border: 1px solid rgba(26,86,219,0.4);
+      color: #06b6d4; padding: 6px 14px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 28px;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; margin-right: 2px; }
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px); font-weight: 900;
+      line-height: 1.05; color: white; letter-spacing: -2px; margin-bottom: 24px;
+    }
+    .hero h1 .c-accent { color: #06b6d4; }
+    .hero h1 .c-gold {
+      text-decoration: underline; text-decoration-color: #f59e0b;
+      text-underline-offset: 6px; text-decoration-thickness: 3px;
+    }
+    .hero-sub {
+      font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.65);
+      max-width: 560px; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: #1a56db; color: white; padding: 16px 30px; border-radius: 10px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.2s; box-shadow: 0 4px 24px rgba(26,86,219,0.4);
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      color: white; padding: 16px 30px; border-radius: 10px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.13); transform: translateY(-2px); }
+    .hero-floats {
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 14px; z-index: 2;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+    .float-card {
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 20px 26px; min-width: 210px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .float-card:nth-child(2) { animation-delay: -1.5s; }
+    .float-card:nth-child(3) { animation-delay: -3s; }
+    .float-num { font-size: 34px; font-weight: 900; color: white; letter-spacing: -1px; }
+    .float-num em { color: #06b6d4; font-style: normal; }
+    .float-lbl { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: #112240;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 5%; display: flex; align-items: center;
+      justify-content: center; gap: 36px; flex-wrap: wrap;
+    }
+    .ti { display: flex; align-items: center; gap: 8px; }
+    .ti-dot { width: 6px; height: 6px; border-radius: 50%; background: #06b6d4; }
+    .ti span { color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; }
+
+    /* STATS */
+    .stats { background: #f8fafc; padding: 70px 5%; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat {
+      background: white; padding: 42px 30px; text-align: center;
+      border-right: 1px solid #e2e8f0; transition: transform 0.2s;
+    }
+    .stat:last-child { border-right: none; }
+    .stat:hover { transform: translateY(-4px); }
+    .stat-n { font-size: 54px; font-weight: 900; color: #0a1628; letter-spacing: -2px; line-height: 1; }
+    .stat-n em { color: #1a56db; font-style: normal; }
+    .stat-l { font-size: 14px; color: #475569; font-weight: 500; margin-top: 8px; }
+
+    /* SHARED */
+    section { padding: 96px 5%; }
+    .lbl { text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #1a56db; margin-bottom: 14px; display: block; }
+    h2.stitle { font-size: clamp(28px, 4vw, 46px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; color: #0a1628; margin-bottom: 16px; }
+    .ssub { font-size: 17px; color: #475569; line-height: 1.7; max-width: 560px; }
+
+    /* ABOUT */
+    .about-s { background: white; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-vis {
+      background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%);
+      border-radius: 24px; padding: 44px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .av-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: 14px; padding: 20px; }
+    .av-n { font-size: 28px; font-weight: 800; color: white; }
+    .av-l { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .av-wide { grid-column: span 2; display: flex; align-items: center; gap: 14px; }
+
+    /* SOLUTIONS */
+    .sol-s { background: #f8fafc; }
+    .sol-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; flex-wrap: wrap; gap: 20px; }
+    .sol-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .sol-card {
+      background: white; border-radius: 20px; padding: 34px;
+      border: 1px solid #e2e8f0; transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .sol-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #1a56db, #06b6d4);
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .sol-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.09); border-color: transparent; }
+    .sol-card:hover::after { transform: scaleX(1); }
+    .sol-ic { font-size: 32px; margin-bottom: 16px; }
+    .sol-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #1a56db; margin-bottom: 7px; }
+    .sol-t { font-size: 19px; font-weight: 700; color: #0a1628; margin-bottom: 10px; }
+    .sol-d { font-size: 14px; color: #475569; line-height: 1.65; margin-bottom: 20px; }
+    .sol-lnk { font-size: 13px; font-weight: 700; color: #1a56db; text-decoration: none; }
+
+    /* SERVE */
+    .serve-s { background: white; text-align: center; }
+    .serve-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; margin-top: 52px; }
+    .serve-card {
+      border: 2px solid #f1f5f9; border-radius: 20px; padding: 44px 34px;
+      transition: all 0.25s;
+    }
+    .serve-card:hover { border-color: #1a56db; box-shadow: 0 10px 40px rgba(26,86,219,0.1); transform: translateY(-4px); }
+    .se-em { font-size: 44px; display: block; margin-bottom: 16px; }
+    .se-t { font-size: 22px; font-weight: 800; color: #0a1628; margin-bottom: 12px; }
+    .se-d { font-size: 14px; color: #475569; line-height: 1.65; }
+
+    /* WHY */
+    .why-s { background: linear-gradient(160deg, #0a1628 0%, #0d2040 100%); position: relative; overflow: hidden; }
+    .why-s::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 90% 50%, rgba(6,182,212,0.08) 0%, transparent 60%); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+    .why-pts { display: flex; flex-direction: column; gap: 18px; }
+    .why-pt {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 20px 22px; transition: background 0.2s;
+    }
+    .why-pt:hover { background: rgba(255,255,255,0.07); }
+    .wp-ic { width: 40px; height: 40px; min-width: 40px; border-radius: 10px; background: rgba(26,86,219,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .wp-t { font-size: 14px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .wp-d { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.6; }
+
+    /* TESTIMONIALS */
+    .test-s { background: #f8fafc; }
+    .test-head { text-align: center; margin-bottom: 52px; }
+    .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .test-card {
+      background: white; border-radius: 20px; padding: 34px;
+      border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 18px;
+      transition: box-shadow 0.2s;
+    }
+    .test-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+    .t-stars { color: #f59e0b; font-size: 14px; letter-spacing: 2px; }
+    .t-q { font-size: 15px; color: #1e293b; line-height: 1.7; font-style: italic; flex: 1; }
+    .t-auth { display: flex; align-items: center; gap: 12px; }
+    .t-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, #1a56db, #06b6d4);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .t-nm { font-size: 13px; font-weight: 700; color: #0a1628; }
+    .t-rl { font-size: 12px; color: #94a3b8; }
+
+    /* CTA */
+    .cta-s {
+      background: linear-gradient(135deg, #1a56db 0%, #1e40af 100%);
+      padding: 96px 5%; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-s::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(6,182,212,0.18) 0%, transparent 60%); }
+    .cta-s h2 { color: white; font-size: clamp(28px,4vw,48px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 16px; position: relative; }
+    .cta-s p { color: rgba(255,255,255,0.72); font-size: 17px; max-width: 480px; margin: 0 auto 38px; position: relative; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; }
+    .btn-white {
+      background: white; color: #1a56db; padding: 16px 30px; border-radius: 10px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+    .btn-outline {
+      background: transparent; border: 2px solid rgba(255,255,255,0.45);
+      color: white; padding: 16px 30px; border-radius: 10px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: #0a1628; padding: 60px 5% 28px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .ft { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; margin-bottom: 44px; }
+    .ft-brand p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 270px; margin-top: 14px; }
+    .fc h4 { color: white; font-size: 12px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .fc a { display: block; color: rgba(255,255,255,0.42); font-size: 13px; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+    .fc a:hover { color: rgba(255,255,255,0.78); }
+    .fb { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .fb p { color: rgba(255,255,255,0.28); font-size: 12px; }
+    .certs { display: flex; gap: 8px; }
+    .cert { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; font-size: 10px; color: rgba(255,255,255,0.42); font-weight: 600; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-floats { display: none; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .sol-grid { grid-template-columns: repeat(2,1fr); }
+      .about-s, .why-grid { grid-template-columns: 1fr; }
+      .ft { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .serve-grid, .test-grid, .sol-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">LDM</div>
+    <span class="nav-logo-text">LDM <span>Global</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#serve">Who We Serve</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#about">About Us</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Talk to an Expert →</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Trusted by AmLaw 100 &amp; Fortune 200</div>
+    <h1>Legal <span class="c-accent">Intelligence.</span><br/>Delivered <span class="c-gold">Globally.</span></h1>
+    <p class="hero-sub">From cyber breach response to contract lifecycle management, LDM Global powers the world's leading law firms, corporations, and legal service providers — AI-driven, expert-led, across 47 countries, around the clock.</p>
+    <div class="hero-actions">
+      <a href="#solutions" class="btn-primary">Explore Our Solutions →</a>
+      <a href="#cta" class="btn-ghost">Talk to an Expert</a>
+    </div>
+  </div>
+  <div class="hero-floats">
+    <div class="float-card">
+      <div class="float-num">6,100<em>+</em></div>
+      <div class="float-lbl">Projects Delivered</div>
+    </div>
+    <div class="float-card">
+      <div class="float-num">210<em>M+</em></div>
+      <div class="float-lbl">Documents Reviewed</div>
+    </div>
+    <div class="float-card">
+      <div class="float-num">47</div>
+      <div class="float-lbl">Countries Served</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="trust-bar">
+  <div class="ti"><div class="ti-dot"></div><span>ISO 27001 Certified</span></div>
+  <div class="ti"><div class="ti-dot"></div><span>SOC 2 Certified</span></div>
+  <div class="ti"><div class="ti-dot"></div><span>HIPAA Compliant</span></div>
+  <div class="ti"><div class="ti-dot"></div><span>24/7 Global Operations</span></div>
+  <div class="ti"><div class="ti-dot"></div><span>Great Place to Work® Certified</span></div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">6,100<em>+</em></div><div class="stat-l">Projects Delivered</div></div>
+  <div class="stat"><div class="stat-n">210<em>M+</em></div><div class="stat-l">Documents Reviewed</div></div>
+  <div class="stat"><div class="stat-n">47</div><div class="stat-l">Countries Served</div></div>
+  <div class="stat"><div class="stat-n">29</div><div class="stat-l">Years of Excellence</div></div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about-s" id="about">
+  <div>
+    <span class="lbl">About LDM Global</span>
+    <h2 class="stitle">Your Legal Operations Partner — From Crisis to Contract</h2>
+    <p class="ssub" style="margin-bottom:24px;">Legal complexity doesn't slow down. Deadlines are tighter, data volumes are larger, and the margin for error is zero. LDM Global was built for exactly this reality.</p>
+    <p style="font-size:16px;color:#475569;line-height:1.7;margin-bottom:34px;">Since 1996, we've combined deep subject matter expertise with cutting-edge AI to help organizations respond faster, review smarter, and operate with confidence — wherever in the world the work needs to happen.</p>
+    <a href="#" class="btn-primary" style="width:fit-content">Our Story →</a>
+  </div>
+  <div class="about-vis">
+    <div class="av-card">
+      <div class="av-n">99.8<span style="font-size:16px;color:#06b6d4">%</span></div>
+      <div class="av-l">Quality Rate</div>
+    </div>
+    <div class="av-card" style="background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.25)">
+      <div class="av-n" style="color:#06b6d4">24/7</div>
+      <div class="av-l">Global Support</div>
+    </div>
+    <div class="av-card av-wide" style="background:rgba(26,86,219,0.15);border-color:rgba(26,86,219,0.25)">
+      <span style="font-size:26px">🌐</span>
+      <div><div class="av-n">5</div><div class="av-l">Continents · 47 Countries</div></div>
+    </div>
+    <div class="av-card av-wide" style="background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2)">
+      <span style="font-size:26px">🏆</span>
+      <div><div class="av-n" style="font-size:20px">Founded 1996</div><div class="av-l">London, UK</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUTIONS ═══ -->
+<section class="sol-s" id="solutions">
+  <div class="sol-head">
+    <div>
+      <span class="lbl">What We Do</span>
+      <h2 class="stitle">End-to-End Legal Solutions,<br/>Powered by AI</h2>
+    </div>
+    <p class="ssub" style="max-width:320px">We handle the heavy lifting so your team can focus on strategy.</p>
+  </div>
+  <div class="sol-grid">
+    <div class="sol-card">
+      <div class="sol-ic">🔍</div>
+      <div class="sol-tag">Core Service</div>
+      <div class="sol-t">Managed Document Review</div>
+      <p class="sol-d">6,100+ projects and 210M+ documents reviewed. We deliver litigation support, breach response, and investigations with speed, precision, and defensibility — in multiple languages, across every time zone.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-ic">🛡️</div>
+      <div class="sol-tag">High Priority</div>
+      <div class="sol-t">Cyber Incident Response</div>
+      <p class="sol-d">When minutes matter, certainty is everything. Our dedicated CIR team rapidly identifies affected individuals, classifies sensitive data, and delivers accurate notification reports on time.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-ic">⚖️</div>
+      <div class="sol-tag">eDiscovery</div>
+      <div class="sol-t">eDiscovery Services</div>
+      <p class="sol-d">End-to-end eDiscovery — from ESI processing and hosting to paralegal support and Relativity administration. Designed to reduce cost and accelerate case timelines.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-ic">📄</div>
+      <div class="sol-tag">Contract Management</div>
+      <div class="sol-t">Contract Lifecycle Management</div>
+      <p class="sol-d">From creation to execution and beyond. Our CLM experts implement the right technology to control your contract portfolio, reduce risk, and unlock value across the business.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-ic">🔬</div>
+      <div class="sol-tag">Forensics</div>
+      <div class="sol-t">Digital Forensics</div>
+      <p class="sol-d">The truth is in the data — we find it. Targeted, defensible data collections and forensic analysis, uncovering the who, what, where, and why behind complex investigations.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-ic">🤖</div>
+      <div class="sol-tag">AI-Powered</div>
+      <div class="sol-t">AI &amp; Analytics Services</div>
+      <p class="sol-d">Applying Reveal, Relativity, Knovos, and Liquid Manager to reduce review time, cut costs, and elevate work product quality. Smarter legal review starts here.</p>
+      <a href="#" class="sol-lnk">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHO WE SERVE ═══ -->
+<section class="serve-s" id="serve">
+  <span class="lbl" style="display:block;text-align:center">Who We Serve</span>
+  <h2 class="stitle" style="text-align:center;margin:0 auto">Built for the Legal Ecosystem</h2>
+  <div class="serve-grid">
+    <div class="serve-card">
+      <span class="se-em">🏢</span>
+      <div class="se-t">Corporations</div>
+      <p class="se-d">Scalable legal ops support for in-house teams navigating litigation, M&amp;A, compliance, and data risk — without growing headcount.</p>
+    </div>
+    <div class="serve-card">
+      <span class="se-em">⚖️</span>
+      <div class="se-t">Law Firms</div>
+      <p class="se-d">Trusted by AmLaw 100 and Magic Circle practices for high-stakes, high-volume engagements that demand precision and speed.</p>
+    </div>
+    <div class="serve-card">
+      <span class="se-em">🤝</span>
+      <div class="se-t">Legal Service Providers</div>
+      <p class="se-d">A white-glove delivery partner that integrates seamlessly into your existing offering — extending your capability without compromise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY US ═══ -->
+<section class="why-s" id="why">
+  <div class="why-grid">
+    <div>
+      <span class="lbl" style="color:#06b6d4">The LDM Difference</span>
+      <h2 class="stitle" style="color:white">We're not a vendor you manage.<br/>We're a partner you trust.</h2>
+      <p class="ssub" style="color:rgba(255,255,255,0.58);margin-bottom:34px">Every engagement is treated as if you're our only client. Here's what that looks like in practice.</p>
+      <a href="#testimonials" class="btn-ghost">See What Clients Say →</a>
+    </div>
+    <div class="why-pts">
+      <div class="why-pt">
+        <div class="wp-ic">👤</div>
+        <div><div class="wp-t">You feel like our only client</div><div class="wp-d">Dedicated attention, proactive communication, and teams invested in your outcomes — not their utilization rate.</div></div>
+      </div>
+      <div class="why-pt">
+        <div class="wp-ic">🌍</div>
+        <div><div class="wp-t">Truly global. Genuinely local.</div><div class="wp-d">Data centers on five continents, proven delivery in 47+ countries. We meet you where your matter arises.</div></div>
+      </div>
+      <div class="why-pt">
+        <div class="wp-ic">🤖</div>
+        <div><div class="wp-t">AI-enabled. Human-led.</div><div class="wp-d">The best technology, validated by experienced legal professionals. Every output is accurate and defensible.</div></div>
+      </div>
+      <div class="why-pt">
+        <div class="wp-ic">💰</div>
+        <div><div class="wp-t">Transparent pricing. No surprises.</div><div class="wp-d">Flexible, predictable models that give you full visibility — plan confidently and stay in control of your budget.</div></div>
+      </div>
+      <div class="why-pt">
+        <div class="wp-ic">🕐</div>
+        <div><div class="wp-t">24/7 — and we mean it</div><div class="wp-d">Nights, weekends, holidays. Legal work doesn't pause, and neither do we.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="test-s" id="testimonials">
+  <div class="test-head">
+    <span class="lbl">Client Stories</span>
+    <h2 class="stitle">Trusted by the World's Leading Legal Teams</h2>
+    <p class="ssub" style="margin:0 auto">Don't take our word for it — here's what our clients say.</p>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-q">"Quality, precision, and expertise — the best in the business. Without a doubt."</p>
+      <div class="t-auth">
+        <div class="t-av">CO</div>
+        <div><div class="t-nm">COO</div><div class="t-rl">Legal Services Provider</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-q">"Incredibly responsive and flexible even when we changed the scope and gave them insane deadlines. The quality of work is fantastic."</p>
+      <div class="t-auth">
+        <div class="t-av">SD</div>
+        <div><div class="t-nm">Sr. Director, Litigation Support</div><div class="t-rl">Fortune 200 Corporation</div></div>
+      </div>
+    </div>
+    <div class="test-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-q">"They are more of a partner than others. Open to meet at any time, discuss issues, new ideas, and truly listen to feedback."</p>
+      <div class="t-auth">
+        <div class="t-av">SE</div>
+        <div><div class="t-nm">Senior eDiscovery Specialist</div><div class="t-rl">Fortune 500 Corporation</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-s" id="cta">
+  <h2>Ready to Transform Your<br/>Legal Operations?</h2>
+  <p>Whether you're facing a cyber breach, preparing for litigation, or modernizing contract management — LDM Global has the expertise, infrastructure, and people to get it done.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-white">Schedule a Consultation →</a>
+    <a href="#" class="btn-outline">Download Fact Sheet</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ft">
+    <div class="ft-brand">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">LDM</div>
+        <span class="nav-logo-text">LDM <span>Global</span></span>
+      </a>
+      <p>Your global legal process outsourcing partner since 1996. AI-driven, expert-led, always available.</p>
+    </div>
+    <div class="fc">
+      <h4>Solutions</h4>
+      <a href="#">Document Review</a>
+      <a href="#">Cyber Incident Response</a>
+      <a href="#">eDiscovery</a>
+      <a href="#">Contract Management</a>
+      <a href="#">Digital Forensics</a>
+      <a href="#">AI &amp; Analytics</a>
+    </div>
+    <div class="fc">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Leadership</a>
+      <a href="#">Careers</a>
+      <a href="#">Locations</a>
+      <a href="#">Diversity &amp; Inclusion</a>
+    </div>
+    <div class="fc">
+      <h4>Resources</h4>
+      <a href="#">Blog</a>
+      <a href="#">Case Studies</a>
+      <a href="#">Fact Sheet</a>
+      <a href="#">Events</a>
+      <a href="#">Privacy Notice</a>
+    </div>
+  </div>
+  <div class="fb">
+    <p>© 2025 LDM Global. All rights reserved.</p>
+    <div class="certs">
+      <span class="cert">ISO 27001</span>
+      <span class="cert">SOC 2</span>
+      <span class="cert">HIPAA</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
